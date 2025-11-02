@@ -35,10 +35,8 @@ export const App = () => {
   };
 
   const handleReverse = () => {
-    const reversed = [...goods].reverse();
-
-    setGoods(reversed);
-    setIsReversed(!isReversed);
+    setGoods(prev => [...prev].reverse());
+    setIsReversed(prev => !prev);
   };
 
   const handleReset = () => {
@@ -47,9 +45,7 @@ export const App = () => {
     setIsReversed(false);
   };
 
-  const isOriginalOrder = goods.every(
-    (item, index) => item === goodsFromServer[index],
-  );
+  const isModified = sortType !== null || isReversed;
 
   return (
     <div className="section content">
@@ -78,7 +74,7 @@ export const App = () => {
           Reverse
         </button>
 
-        {!isOriginalOrder && (
+        {isModified && (
           <button
             type="button"
             className="button is-danger"
